@@ -24,8 +24,9 @@ public class CommunicationThread {
    public void periodic() {
     // This is a dedicated space that can communicate with other processors
     // without interrupting or blocking detection of the next frame
+    //Josh Later replace "this" with primaryDetection or the thing you are trying to send.
     synchronized(primaryDetection) {
-        this.primaryTagPublisher.send(primaryDetection);
+        this.primaryTagPublisher.send(primaryDetection);// I don't know what to send but I'm pretty sure becuase we are sending primaryDetection it is a null error.
     }
    }
 
