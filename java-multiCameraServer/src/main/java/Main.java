@@ -326,7 +326,7 @@ public final class Main {
     CommunicationThread communicationThread = new CommunicationThread(ntinst);
     // start image processing on camera 0 if present
     if (cameras.size() >= 1) {
-      VisionThread visionThread = new VisionThread(cameras.get(0), new AprilTagPipeline(0, 0, "tag16h5"), pipeline -> {
+      VisionThread visionThread = new VisionThread(cameras.get(0), new AprilTagPipeline("tag16h5"), pipeline -> {
         if (pipeline.detectedTags.length == 0) { 
           communicationThread.setPrimaryTag(null);
         } else {
