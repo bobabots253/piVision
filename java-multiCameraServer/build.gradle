@@ -25,7 +25,7 @@ dependencies {
     implementation files('ntcore.jar')
     implementation files('cscore.jar')
     implementation files('cameraserver.jar')
-    implementation files('opencv-460.jar')
+    implementation files('opencv-480.jar')
     implementation files('wpilibj.jar')
     implementation files('wpiHal.jar')
 }
