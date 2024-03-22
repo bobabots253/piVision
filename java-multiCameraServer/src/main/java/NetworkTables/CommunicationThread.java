@@ -27,14 +27,14 @@ public class CommunicationThread {
     // without interrupting or blocking detection of the next frame
     //Josh Later replace "this" with primaryDetection or the thing you are trying to send.
     synchronized(this) {
-        System.out.println(this.primaryTagTable.familyTopic.toString());
-        System.out.println(this.primaryTagTable.idTopic.toString());
-        System.out.println(this.primaryTagTable.hammingTopic.toString());
-        System.out.println(this.primaryTagTable.decisionMarginTopic.toString());
-        System.out.println(this.primaryTagTable.homography.toString());
-        System.out.println(this.primaryTagTable.centerXTopic.toString());
-        System.out.println(this.primaryTagTable.centerYTopic.toString());
-        System.out.println(this.primaryTagTable.cornersTopic.toString());
+        // System.out.println(this.primaryTagTable.familyTopic.toString());
+        // System.out.println(this.primaryTagTable.idTopic.toString());
+        // System.out.println(this.primaryTagTable.hammingTopic.toString());
+        // System.out.println(this.primaryTagTable.decisionMarginTopic.toString());
+        // System.out.println(this.primaryTagTable.homography.toString());
+        // System.out.println(this.primaryTagTable.centerXTopic.toString());
+        // System.out.println(this.primaryTagTable.centerYTopic.toString());
+        // System.out.println(this.primaryTagTable.cornersTopic.toString());
         this.primaryTagPublisher.send(primaryDetection);// I don't know what to send but I'm pretty sure becuase we are sending primaryDetection it is a null error.
     }
    }

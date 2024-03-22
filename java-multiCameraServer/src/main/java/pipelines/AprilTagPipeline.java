@@ -42,6 +42,7 @@ public class AprilTagPipeline implements VisionPipeline {
         AprilTagDetection[] detections= detector.detect(grayMat);
         tags.clear();
         for (AprilTagDetection detection : detections) {
+            System.out.println("foundSomething");
             var tagID = detection.getId();
             var centerX = detection.getCenterX();
             var centerY = detection.getCenterY();
