@@ -18,6 +18,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import edu.wpi.first.apriltag.AprilTagDetector;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.MjpegServer;
 import edu.wpi.first.cscore.UsbCamera;
@@ -96,6 +97,8 @@ public final class Main {
   public static List<CameraConfig> cameraConfigs = new ArrayList<>();
   public static List<SwitchedCameraConfig> switchedCameraConfigs = new ArrayList<>();
   public static List<VideoSource> cameras = new ArrayList<>();
+  //Intresting if the line under is in AprilTagPipeline It causes errors with libaries like math specificly it says it can't find a certain class. - josh
+  AprilTagDetector detector = new AprilTagDetector();
 
   private Main() {
   }
@@ -328,6 +331,7 @@ public final class Main {
     if (cameras.size() >= 1) {
       VisionThread visionThread = new VisionThread(cameras.get(0), new AprilTagPipeline("tag16h5"), pipeline -> {
         if (pipeline.detectedTags.length == 0) { 
+          //you can't give setPrimaryTag a null its gives an error. - josh Currently I added a null detection in Communication Thread
           communicationThread.setPrimaryTag(null);
         } else {
            communicationThread.setPrimaryTag(pipeline.detectedTags[0]);

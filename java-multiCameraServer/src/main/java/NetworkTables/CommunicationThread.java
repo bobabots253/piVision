@@ -25,7 +25,7 @@ public class CommunicationThread {
    public void periodic() {
     // This is a dedicated space that can communicate with other processors
     // without interrupting or blocking detection of the next frame
-    //Josh Later replace "this" with primaryDetection or the thing you are trying to send.
+    //Later replace "this" with primaryDetection or the thing you are trying to send. This is a reminder/ idk if we need to replace (this) with primaryDetection-josh
     synchronized(this) {
         // System.out.println(this.primaryTagTable.familyTopic.toString());
         // System.out.println(this.primaryTagTable.idTopic.toString());
@@ -42,8 +42,10 @@ public class CommunicationThread {
    // MARK: - Synchronized Setter
 
    public void setPrimaryTag(AprilTagDetection detection) {
-    synchronized(primaryDetection) {
-        this.primaryDetection = detection;
+        if(detection != null){
+            synchronized(primaryDetection) {
+            this.primaryDetection = detection;
+        }
     }
    }
 }
