@@ -42,10 +42,9 @@ public class CommunicationThread {
    // MARK: - Synchronized Setter
 
    public void setPrimaryTag(AprilTagDetection detection) {
-        if(detection != null){
-            synchronized(primaryDetection) {
-            this.primaryDetection = detection;
-        }
+        synchronized(this) {
+        this.primaryDetection = detection;
+        
     }
    }
 }

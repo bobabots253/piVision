@@ -46,8 +46,10 @@ import NetworkTables.*;
 import pipelines.*;
 
 public class AprilTagPipeline implements VisionPipeline {
-    //private AprilTagDetector m_Detector = new AprilTagDetector();
-    
+    private AprilTagDetector m_Detector;
+    private int reticalSize = 20;
+    private Scalar outlineColor = new Scalar(0, 255, 0);
+    private Scalar xColor = new Scalar(0, 0, 255);   
 
     /**
      * All tags currently detected by the emitting camera
@@ -57,25 +59,21 @@ public class AprilTagPipeline implements VisionPipeline {
     public AprilTagPipeline(String family) {
         AprilTagDetection[] emptyTags = {};
         this.detectedTags = emptyTags;
+        this.m_Detector = new AprilTagDetector();
     }
 
     @Override
     public void process(Mat cameraFrame) {
         //This causes a bunch of errors and cause all code after to not run. -josh
         //AprilTagDetector detector = new AprilTagDetector();
-        Mat mat = new Mat();
         Mat grayMat = new Mat();
         //The libary for cvtColor seems to not be able to be found causing an error. Also all code after stops running. - josh
-        //Imgproc.cvtColor(mat, grayMat, Imgproc.COLOR_RGB2GRAY);
-        var reticalSize = 20;
-        Scalar outlineColor = new Scalar(0, 255, 0);
-        Scalar xColor = new Scalar(0, 0, 255);
-        ArrayList<Integer> tags = new ArrayList<>();
+        Imgproc.cvtColor(cameraFrame, grayMat, Imgproc.COLOR_RGB2GRAY);
+
         //Currently haven't tested any of the code under for errors -josh
         //CvSource outputStream = CameraServer.putVideo("detect", 640, 480);
         // TODO! How can we take our existing logic and update it to run here?
-        //AprilTagDetection[] detections= m_Detector.detect(grayMat);
-        tags.clear();
+        detectedTags = m_Detector.detect(grayMat);
         
       //   for (AprilTagDetection detection : detections) {
       //       System.out.println("foundSomething");
@@ -99,7 +97,7 @@ public class AprilTagPipeline implements VisionPipeline {
       //   Imgproc.putText(mat, Integer.toString(tagID), new Point (centerX + reticalSize, centerY), Imgproc.FONT_HERSHEY_SIMPLEX, 1, xColor, 3);
       // }
 
-      SmartDashboard.putString("tag", tags.toString());
+      SmartDashboard.putString("tag", detectedTags.toString());
       // Give the output stream a new image to display
       //outputStream.putFrame(mat);
     
