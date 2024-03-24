@@ -27,8 +27,10 @@ import edu.wpi.first.networktables.NetworkTableEvent;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.vision.VisionPipeline;
 import edu.wpi.first.vision.VisionThread;
+import edu.wpi.first.util.CombinedRuntimeLoader;
 
 import org.opencv.core.Mat;
+import edu.wpi.first.math.util.Units;
 
 import NetworkTables.*;
 import pipelines.*;
@@ -298,6 +300,7 @@ public final class Main {
     if (args.length > 0) {
       configFile = args[0];
     }
+    
 
     // read configuration
     if (!readConfig()) {
@@ -335,6 +338,7 @@ public final class Main {
           communicationThread.setPrimaryTag(null);
         } else {
            communicationThread.setPrimaryTag(pipeline.detectedTags[0]);
+           System.out.println("working");
         }
       });
       visionThread.start();

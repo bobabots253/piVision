@@ -41,6 +41,7 @@ import edu.wpi.first.vision.VisionPipeline;
 import edu.wpi.first.vision.VisionThread;
 
 import org.opencv.core.Mat;
+import edu.wpi.first.math.util.Units;
 
 import NetworkTables.*;
 import pipelines.*;
@@ -74,6 +75,7 @@ public class AprilTagPipeline implements VisionPipeline {
         //CvSource outputStream = CameraServer.putVideo("detect", 640, 480);
         // TODO! How can we take our existing logic and update it to run here?
         detectedTags = m_Detector.detect(grayMat);
+        System.out.println(detectedTags.length);
         
       //   for (AprilTagDetection detection : detections) {
       //       System.out.println("foundSomething");
