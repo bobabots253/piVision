@@ -13,38 +13,8 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.vision.VisionPipeline;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Timer;
 //I just imported a bunch of libaries to see if it does anything.
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.List;
-
-import javax.naming.CommunicationException;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
-import edu.wpi.first.apriltag.AprilTagDetector;
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.cscore.MjpegServer;
-import edu.wpi.first.cscore.UsbCamera;
-import edu.wpi.first.cscore.VideoSource;
-import edu.wpi.first.networktables.NetworkTableEvent;
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.vision.VisionPipeline;
-import edu.wpi.first.vision.VisionThread;
-
-import org.opencv.core.Mat;
-import edu.wpi.first.math.util.Units;
-
-import NetworkTables.*;
-import pipelines.*;
 
 public class AprilTagPipeline implements VisionPipeline {
     private AprilTagDetector m_Detector;
@@ -61,6 +31,8 @@ public class AprilTagPipeline implements VisionPipeline {
         AprilTagDetection[] emptyTags = {};
         this.detectedTags = emptyTags;
         this.m_Detector = new AprilTagDetector();
+        this.m_Detector.addFamily(family,0);
+
     }
 
     @Override
@@ -75,29 +47,35 @@ public class AprilTagPipeline implements VisionPipeline {
         //CvSource outputStream = CameraServer.putVideo("detect", 640, 480);
         // TODO! How can we take our existing logic and update it to run here?
         detectedTags = m_Detector.detect(grayMat);
-        System.out.println(detectedTags.length);
         
-      //   for (AprilTagDetection detection : detections) {
-      //       System.out.println("foundSomething");
-      //       var tagID = detection.getId();
-      //       var centerX = detection.getCenterX();
-      //       var centerY = detection.getCenterY();
+        System.out.println("length"+detectedTags.length);
 
-      //   tags.add(tagID);
-      //   /// Draw debug rectangle
+        
+        for (AprilTagDetection detection : detectedTags) {
+            System.out.println("foundSomething");
+            var tagID = detection.getId();
+            var centerX = detection.getCenterX();
+            var centerY = detection.getCenterY();
+            System.out.println("tag Id:"+tagID);
+            System.out.println(centerX);
+            System.out.println(centerY);
 
-      //   for (var corner = 0; corner <= 3; corner++) {
-      //     var nextCorner = (corner + 1) % 4;
-      //     var pt1 = new Point(detection.getCornerX(corner), detection.getCornerY(corner));
-      //     var pt2 = new Point(detection.getCornerX(nextCorner), detection.getCornerY(nextCorner));
-      //     Imgproc.line(mat, pt1, pt2, outlineColor, 2);
-      //   }
+        //tags.add(tagID);
+        /// Draw debug rectangle
 
-      //   // Draw debug retical
-      //   Imgproc.line(mat, new Point(centerX - reticalSize, centerY), new Point(centerX + reticalSize, centerY), xColor, 2);
-      //   Imgproc.line(mat, new Point(centerX, centerY - reticalSize), new Point(centerX, centerY + reticalSize), xColor, 2);
-      //   Imgproc.putText(mat, Integer.toString(tagID), new Point (centerX + reticalSize, centerY), Imgproc.FONT_HERSHEY_SIMPLEX, 1, xColor, 3);
-      // }
+    //     for (var corner = 0; corner <= 3; corner++) {
+    //       var nextCorner = (corner + 1) % 4;
+    //       var pt1 = new Point(detection.getCornerX(corner), detection.getCornerY(corner));
+    //       var pt2 = new Point(detection.getCornerX(nextCorner), detection.getCornerY(nextCorner));
+    //       Imgproc.line(mat, pt1, pt2, outlineColor, 2);
+    //     }
+
+    //     // Draw debug retical
+    //     Imgproc.line(mat, new Point(centerX - reticalSize, centerY), new Point(centerX + reticalSize, centerY), xColor, 2);
+    //     Imgproc.line(mat, new Point(centerX, centerY - reticalSize), new Point(centerX, centerY + reticalSize), xColor, 2);
+    //     Imgproc.putText(mat, Integer.toString(tagID), new Point (centerX + reticalSize, centerY), Imgproc.FONT_HERSHEY_SIMPLEX, 1, xColor, 3);
+       }
+        
 
       SmartDashboard.putString("tag", detectedTags.toString());
       // Give the output stream a new image to display

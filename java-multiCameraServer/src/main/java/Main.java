@@ -100,7 +100,7 @@ public final class Main {
   public static List<SwitchedCameraConfig> switchedCameraConfigs = new ArrayList<>();
   public static List<VideoSource> cameras = new ArrayList<>();
   //Intresting if the line under is in AprilTagPipeline It causes errors with libaries like math specificly it says it can't find a certain class. - josh
-  AprilTagDetector detector = new AprilTagDetector();
+  //AprilTagDetector detector = new AprilTagDetector();
 
   private Main() {
   }
@@ -338,7 +338,6 @@ public final class Main {
           communicationThread.setPrimaryTag(null);
         } else {
            communicationThread.setPrimaryTag(pipeline.detectedTags[0]);
-           System.out.println("working");
         }
       });
       visionThread.start();
