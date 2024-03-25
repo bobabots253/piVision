@@ -108,8 +108,9 @@ public class AprilTagTable {
 
         public void clear() {
             double[] emptyArray = {};
+            String emptyString ="";
 
-            this.family.set(null);
+            this.family.set(emptyString);
             this.id.set(0);
             this.hamming.set(0);
             this.homography.set(emptyArray);

@@ -1,7 +1,11 @@
+import edu.wpi.first.toolchain.*
+
 plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2' apply false
+    id "edu.wpi.first.wpilib.repositories.WPILibRepositoriesPlugin" version "2020.2"
+    id 'edu.wpi.first.WpilibTools' version'1.3.0'
 }
 
 mainClassName = 'Main'
@@ -17,15 +21,18 @@ repositories {
 
 dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
-
+    implementation group: 'us.hebi.quickbuf', name: 'quickbuf-runtime', version: '1.4'
+    implementation group: 'org.ejml', name: 'all', version: '0.30'
+    implementation group: 'edu.wpi.first.wpiunits', name : 'wpiunits'
     implementation files('apriltag.jar')
     implementation files('wpimath.jar')
+    implementation files('edu.wpi.first.math.util.Units')
     implementation files('wpinet.jar')
     implementation files('wpiutil.jar')
     implementation files('ntcore.jar')
     implementation files('cscore.jar')
     implementation files('cameraserver.jar')
-    implementation files('opencv-460.jar')
+    implementation files('opencv-480.jar')
     implementation files('wpilibj.jar')
     implementation files('wpiHal.jar')
 }
